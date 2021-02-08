@@ -3,26 +3,34 @@
 # Author: TensorVince
 # License: Peaceful Open Source License (https://raw.githubusercontent.com/TensorVince/PeacefulOpenSourceLicense/main/LICENSE)
 # --------------------------------------------------------------------------------------------------------------------------------
-# Description: class to calculate the N next neighbours of a point
+# Description: returns the K next neighbors
 # ********************************************************************************************************************************
 from point import *
-from sampleClass import *
+from dataset import *
+from datasetContainer import *
 
-# Test: Point
-a = Point(2,4)
-b = Point(3,9)
-result = b - a
-print(result)
+class KNN_Calculator():
 
+    def __init__(self, K = 5):
+        self.K = K
 
-# Test: SampleClass
-testClass = SampleClass("red")
-testClass.AddPoint(a)
-testClass.AddPoint(b)
+    # Summary:
+    # - Calculates all distances
+    # - Sorts the distances ascending (shortest first)
+    # - returns their respective indeces in the SampleClassContainer
+    def GetKNNs(self, p : Point, dsc : DataSetContainer):
+        distances = []
+        
+        # Determine all distances
+        for i in range(len(dsc)):
+            currentDistance = p - dsc[i]
+            distances.append([i, currentDistance])
 
-for point in testClass:
-    print(point)
+        # Sort distances ascending (next neighbours)
+        distances.sort(key = lambda x : x[1])
 
+        # extract indeces from next neighbours
+        indeces = [indexDistancePair[0] for indexDistancePair in distances]
 
-
-
+        # return only indeces of K next neighbours
+        return indeces[:self.K]
