@@ -18,14 +18,19 @@ class Point:
     # This happens automatically by using the "squareroot"-function.
     # 
     # Formula to calculate the distance:
-    # AB^2 = (xB - xA)^2 + (yB - yA)^2
-    # AB = SQRT(AB^2)
+    # C^2 = (xB - xA)^2 + (yB - yA)^2
+    # C = SQRT(C^2)
     #
     # Source:
-    # Pythagoras (https://en.wikipedia.org/wiki/Pythagoras)
+    # Pythagoras (https://en.wikipedia.org/wiki/Pythagorean_theorem)
     def __sub__(p1, p2): # p1 = self
         xSquared = (p2.x - p1.x)**2
         ySquared = (p2.y - p1.y)**2
         distance = sqrt(xSquared + ySquared)
 
         return distance
+
+    # For debugging purposes
+    def __str__(self):
+        dbgStr = f"(X:{self.x}, Y:{self.y})"
+        return dbgStr

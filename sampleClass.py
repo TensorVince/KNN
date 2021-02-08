@@ -7,9 +7,14 @@
 # ********************************************************************************************************************************
 from point import *
 
-a = Point(2,4)
-b = Point(3,9)
+class SampleClass:
+    def __init__(self, color, pointArr = []):
+        self.color = color
+        self.pointArr = pointArr
 
-result = b - a
-print(result)
+    def AddPoint(self, p):
+        self.pointArr.append(p)
 
+    # Methods to iterate over all Points
+    def __iter__(self):
+        return self.pointArr.__iter__()
