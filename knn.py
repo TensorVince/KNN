@@ -19,12 +19,14 @@ class KNN_Calculator():
     # - Sorts the distances ascending (shortest first)
     # - returns their respective indeces in the SampleClassContainer
     def GetKNNs(self, p : Point, dsc : DataSetContainer):
-        distances = []
+        distances = [] # contains pairs like [classId, distance]
         
         # Determine all distances
-        for i in range(len(dsc)):
-            currentDistance = p - dsc[i]
-            distances.append([i, currentDistance])
+        #for i in range(len(dsc)):
+        for classId, newPoint in dsc.Data():
+            #currentDistance = p - dsc[i]
+            currentDistance = p - newPoint
+            distances.append([classId, currentDistance])
 
         # Sort distances ascending (next neighbours)
         distances.sort(key = lambda x : x[1])
