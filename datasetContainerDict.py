@@ -2,11 +2,14 @@ import random
 
 
 class DatasetContainerDict(dict):
-    def __init__(self):
-        pass
 
-    def LoadDataFromArray(inputData):
-        pass
+    def LoadDataFromArray(inputDataArr):
+        for inputData in inputDataArr:
+            self[inputData[0]] = inputData[1]
+
+    def __init__(self, inputData = None):
+        if inputData != None:
+            LoadDataFromArray(inputDataArr)
 
     def LoadDataSetsFromCsv(csvPath, colSeperator = ';', classifierColumnIndex = 0, *coordinateColumnIndeces):
 
@@ -47,6 +50,21 @@ class DatasetContainerDict(dict):
         random.shuffle(allData)
 
         # seperate training-data from test-data
+        numberOfTestdataElements = len(allData) // 100 * percentTestData
+        trainDataArr = allData[:-percentTestData]
+        testDataArr = allData[-percentTestData:]
+
+        # Create two sets
+        trainDS = DatasetContainerDict(trainDataArr)
+        testDS = DatasetContainerDict(testDataArr)
+
+        # return result
+        return [trainDS, testDS]
+
+        
+
+
+
         
 
 
